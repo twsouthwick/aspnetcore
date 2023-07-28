@@ -226,6 +226,22 @@ http_get_completion_info(
 // the signature should be changed. application's based address should be passed in
 //
 
+DWORD GetIISVersion() {
+    auto module = GetModuleHandle(L"aspnetcorev2.dll");
+
+    if (module != nullptr)
+    {
+        auto func = (DWORD(_stdcall*)()) GetProcAddress(module, "GetIISVersion");
+
+        if (func != NULL)
+        {
+            return func();
+        }
+    }
+
+    return 0;
+}
+
 struct IISConfigurationData
 {
     IN_PROCESS_APPLICATION* pInProcessApplication;
@@ -269,12 +285,7 @@ http_get_application_properties(
     pIISConfigurationData->pwzSiteName = SysAllocString(pInProcessApplication->QueryConfig().QuerySiteName().c_str());
     pIISConfigurationData->pwzAppPoolId = SysAllocString(pInProcessApplication->QueryConfig().QueryAppPoolId().c_str());
     pIISConfigurationData->pwzAppPoolConfig = SysAllocString(pInProcessApplication->QueryConfig().QueryAppPoolConfig().c_str());
-
-    WCHAR iisVersion[10] = { 0 };
-
-    if (GetEnvironmentVariable(L"ANCM_IIS_VERSION", iisVersion, sizeof(iisVersion) / sizeof(WCHAR)) > 0) {
-        pIISConfigurationData->iisVersion = (DWORD)_wtoi(iisVersion);
-    }
+    pIISConfigurationData->iisVersion = GetIISVersion();
 
     auto const serverAddresses = BindingInformation::Format(pConfiguration.QueryBindings(), pInProcessApplication->QueryApplicationVirtualPath());
     pIISConfigurationData->pwzBindings = SysAllocString(serverAddresses.c_str());
