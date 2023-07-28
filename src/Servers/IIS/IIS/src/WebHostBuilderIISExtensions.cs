@@ -28,6 +28,12 @@ public static class WebHostBuilderIISExtensions
         if (OperatingSystem.IsWindows() && NativeMethods.IsAspNetCoreModuleLoaded())
         {
             var iisConfigData = NativeMethods.HttpGetApplicationProperties();
+
+            hostBuilder.ConfigureServices((context, _) =>
+            {
+                context.HostingEnvironment.Features.Set<IISEnvironmentFeature>(iisConfigData);
+            });
+
             // Trim trailing slash to be consistent with other servers
             var contentRoot = iisConfigData.pwzFullApplicationPath.TrimEnd(Path.DirectorySeparatorChar);
             hostBuilder.UseContentRoot(contentRoot);

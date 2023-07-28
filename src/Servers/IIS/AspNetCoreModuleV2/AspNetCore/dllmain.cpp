@@ -63,6 +63,11 @@ BOOL WINAPI DllMain(HMODULE hModule,
     return TRUE;
 }
 
+static void SetVersionEnvVariable(DWORD dwServerVersion) {
+    auto value = std::to_wstring(dwServerVersion);
+    SetEnvironmentVariable(L"ANCM_IIS_VERSION", value.c_str());
+}
+
 HRESULT
 __stdcall
 RegisterModule(
@@ -90,7 +95,7 @@ HRESULT
 
 --*/
 {
-    UNREFERENCED_PARAMETER(dwServerVersion);
+    SetVersionEnvVariable(dwServerVersion);
 
     if (pHttpServer->IsCommandLineLaunch())
     {

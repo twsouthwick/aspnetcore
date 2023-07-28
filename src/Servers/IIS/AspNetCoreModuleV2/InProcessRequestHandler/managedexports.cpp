@@ -236,6 +236,12 @@ struct IISConfigurationData
     BOOL fAnonymousAuthEnable;
     BSTR pwzBindings;
     DWORD maxRequestBodySize;
+    BSTR pwzApplicationId;
+    BSTR pwzSiteName;
+    DWORD siteId;
+    BSTR pwzAppPoolId;
+    BSTR pwzAppPoolConfig;
+    DWORD iisVersion;
 };
 
 EXTERN_C __declspec(dllexport)
@@ -258,6 +264,17 @@ http_get_application_properties(
     pIISConfigurationData->fWindowsAuthEnabled = pConfiguration.QueryWindowsAuthEnabled();
     pIISConfigurationData->fBasicAuthEnabled = pConfiguration.QueryBasicAuthEnabled();
     pIISConfigurationData->fAnonymousAuthEnable = pConfiguration.QueryAnonymousAuthEnabled();
+    pIISConfigurationData->pwzApplicationId = SysAllocString(pInProcessApplication->QueryApplicationId().c_str());
+    pIISConfigurationData->siteId = pInProcessApplication->QueryConfig().QuerySiteId();
+    pIISConfigurationData->pwzSiteName = SysAllocString(pInProcessApplication->QueryConfig().QuerySiteName().c_str());
+    pIISConfigurationData->pwzAppPoolId = SysAllocString(pInProcessApplication->QueryConfig().QueryAppPoolId().c_str());
+    pIISConfigurationData->pwzAppPoolConfig = SysAllocString(pInProcessApplication->QueryConfig().QueryAppPoolConfig().c_str());
+
+    WCHAR iisVersion[10] = { 0 };
+
+    if (GetEnvironmentVariable(L"ANCM_IIS_VERSION", iisVersion, sizeof(iisVersion) / sizeof(WCHAR)) > 0) {
+        pIISConfigurationData->iisVersion = (DWORD)_wtoi(iisVersion);
+    }
 
     auto const serverAddresses = BindingInformation::Format(pConfiguration.QueryBindings(), pInProcessApplication->QueryApplicationVirtualPath());
     pIISConfigurationData->pwzBindings = SysAllocString(serverAddresses.c_str());
@@ -605,7 +622,7 @@ EXTERN_C __declspec(dllexport)
 HRESULT
 http_response_set_need_goaway(
     _In_ IN_PROCESS_HANDLER* pInProcessHandler
-    )
+)
 {
     IHttpResponse4* pHttpResponse = (IHttpResponse4*)pInProcessHandler->QueryHttpContext()->GetResponse();
     pHttpResponse->SetNeedGoAway();

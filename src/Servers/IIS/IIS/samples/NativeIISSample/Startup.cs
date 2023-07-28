@@ -1,29 +1,25 @@
 // Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 
-using System;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Hosting.Server;
 using Microsoft.AspNetCore.Hosting.Server.Features;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Server.IIS;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 
 namespace NativeIISSample;
 
 public class Startup
 {
+    private readonly IWebHostEnvironment _env;
     private readonly IAuthenticationSchemeProvider _authSchemeProvider;
 
-    public Startup(IAuthenticationSchemeProvider authSchemeProvider = null)
+    public Startup(IWebHostEnvironment env, IAuthenticationSchemeProvider authSchemeProvider = null)
     {
+        _env = env;
         _authSchemeProvider = authSchemeProvider;
+
+        var iisSettings = _env.Features.Get<IISEnvironmentFeature>();
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

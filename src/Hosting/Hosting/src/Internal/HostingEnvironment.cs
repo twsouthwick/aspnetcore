@@ -2,6 +2,7 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 
 using System.Diagnostics;
+using Microsoft.AspNetCore.Http.Features;
 using Microsoft.Extensions.FileProviders;
 
 namespace Microsoft.AspNetCore.Hosting;
@@ -24,4 +25,6 @@ internal sealed class HostingEnvironment : IHostingEnvironment, Extensions.Hosti
     public string ContentRootPath { get; set; } = default!;
 
     public IFileProvider ContentRootFileProvider { get; set; } = default!;
+
+    public IFeatureCollection Features { get; } = new FeatureCollection();
 }
