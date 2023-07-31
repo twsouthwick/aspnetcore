@@ -2,6 +2,11 @@
   "solution": {
     "path": "..\\..\\..\\AspNetCore.sln",
     "projects": [
+      "src\\Antiforgery\\src\\Microsoft.AspNetCore.Antiforgery.csproj",
+      "src\\DataProtection\\Abstractions\\src\\Microsoft.AspNetCore.DataProtection.Abstractions.csproj",
+      "src\\DataProtection\\Cryptography.Internal\\src\\Microsoft.AspNetCore.Cryptography.Internal.csproj",
+      "src\\DataProtection\\DataProtection\\src\\Microsoft.AspNetCore.DataProtection.csproj",
+      "src\\DefaultBuilder\\src\\Microsoft.AspNetCore.csproj",
       "src\\Extensions\\Features\\src\\Microsoft.Extensions.Features.csproj",
       "src\\FileProviders\\Embedded\\src\\Microsoft.Extensions.FileProviders.Embedded.csproj",
       "src\\Hosting\\Abstractions\\src\\Microsoft.AspNetCore.Hosting.Abstractions.csproj",
@@ -16,11 +21,20 @@
       "src\\Http\\Http.Extensions\\src\\Microsoft.AspNetCore.Http.Extensions.csproj",
       "src\\Http\\Http.Features\\src\\Microsoft.AspNetCore.Http.Features.csproj",
       "src\\Http\\Http\\src\\Microsoft.AspNetCore.Http.csproj",
+      "src\\Http\\Metadata\\src\\Microsoft.AspNetCore.Metadata.csproj",
+      "src\\Http\\Routing.Abstractions\\src\\Microsoft.AspNetCore.Routing.Abstractions.csproj",
+      "src\\Http\\Routing\\src\\Microsoft.AspNetCore.Routing.csproj",
       "src\\Http\\WebUtilities\\src\\Microsoft.AspNetCore.WebUtilities.csproj",
+      "src\\Middleware\\Diagnostics.Abstractions\\src\\Microsoft.AspNetCore.Diagnostics.Abstractions.csproj",
+      "src\\Middleware\\Diagnostics\\src\\Microsoft.AspNetCore.Diagnostics.csproj",
+      "src\\Middleware\\HostFiltering\\src\\Microsoft.AspNetCore.HostFiltering.csproj",
       "src\\Middleware\\HttpOverrides\\src\\Microsoft.AspNetCore.HttpOverrides.csproj",
       "src\\Middleware\\HttpsPolicy\\src\\Microsoft.AspNetCore.HttpsPolicy.csproj",
       "src\\Middleware\\ResponseCompression\\src\\Microsoft.AspNetCore.ResponseCompression.csproj",
       "src\\ObjectPool\\src\\Microsoft.Extensions.ObjectPool.csproj",
+      "src\\Security\\Authentication\\Core\\src\\Microsoft.AspNetCore.Authentication.csproj",
+      "src\\Security\\Authorization\\Core\\src\\Microsoft.AspNetCore.Authorization.csproj",
+      "src\\Security\\Authorization\\Policy\\src\\Microsoft.AspNetCore.Authorization.Policy.csproj",
       "src\\Servers\\Connections.Abstractions\\src\\Microsoft.AspNetCore.Connections.Abstractions.csproj",
       "src\\Servers\\HttpSys\\src\\Microsoft.AspNetCore.Server.HttpSys.csproj",
       "src\\Servers\\IIS\\AspNetCoreModuleV2\\AspNetCore\\AspNetCore.vcxproj",
@@ -39,10 +53,10 @@
       "src\\Servers\\IIS\\IIS\\samples\\NativeIISSample\\NativeIISSample.csproj",
       "src\\Servers\\IIS\\IIS\\src\\Microsoft.AspNetCore.Server.IIS.csproj",
       "src\\Servers\\IIS\\IIS\\test\\IIS.FunctionalTests\\IIS.FunctionalTests.csproj",
+      "src\\Servers\\IIS\\IIS\\test\\IIS.LongTests\\IIS.LongTests.csproj",
       "src\\Servers\\IIS\\IIS\\test\\IIS.NewHandler.FunctionalTests\\IIS.NewHandler.FunctionalTests.csproj",
       "src\\Servers\\IIS\\IIS\\test\\IIS.NewShim.FunctionalTests\\IIS.NewShim.FunctionalTests.csproj",
       "src\\Servers\\IIS\\IIS\\test\\IIS.ShadowCopy.Tests\\IIS.ShadowCopy.Tests.csproj",
-      "src\\Servers\\IIS\\IIS\\test\\IIS.LongTests\\IIS.LongTests.csproj",
       "src\\Servers\\IIS\\IIS\\test\\IIS.Tests\\IIS.Tests.csproj",
       "src\\Servers\\IIS\\IIS\\test\\IISExpress.FunctionalTests\\IISExpress.FunctionalTests.csproj",
       "src\\Servers\\IIS\\IIS\\test\\testassets\\IIS.Common.TestLib\\IIS.Common.TestLib.csproj",
@@ -55,7 +69,8 @@
       "src\\Servers\\Kestrel\\Transport.NamedPipes\\src\\Microsoft.AspNetCore.Server.Kestrel.Transport.NamedPipes.csproj",
       "src\\Servers\\Kestrel\\Transport.Quic\\src\\Microsoft.AspNetCore.Server.Kestrel.Transport.Quic.csproj",
       "src\\Servers\\Kestrel\\Transport.Sockets\\src\\Microsoft.AspNetCore.Server.Kestrel.Transport.Sockets.csproj",
-      "src\\Testing\\src\\Microsoft.AspNetCore.Testing.csproj"
+      "src\\Testing\\src\\Microsoft.AspNetCore.Testing.csproj",
+      "src\\WebEncoders\\src\\Microsoft.Extensions.WebEncoders.csproj"
     ]
   }
 }
