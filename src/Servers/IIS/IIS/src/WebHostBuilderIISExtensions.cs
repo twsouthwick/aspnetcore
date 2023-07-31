@@ -31,7 +31,10 @@ public static class WebHostBuilderIISExtensions
 
             hostBuilder.ConfigureServices((context, _) =>
             {
-                context.HostingEnvironment.Features.Set<IISEnvironmentFeature>(iisConfigData);
+                if (!context.HostingEnvironment.Features.IsReadOnly)
+                {
+                    context.HostingEnvironment.Features.Set<IISEnvironmentFeature>(iisConfigData);
+                }
             });
 
             // Trim trailing slash to be consistent with other servers
