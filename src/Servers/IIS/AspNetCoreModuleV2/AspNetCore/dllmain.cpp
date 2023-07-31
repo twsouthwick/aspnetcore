@@ -127,16 +127,16 @@ HRESULT
     auto moduleFactory = std::make_unique<ASPNET_CORE_PROXY_MODULE_FACTORY>(pModuleInfo->GetId(), applicationManager);
 
     RETURN_IF_FAILED(pModuleInfo->SetRequestNotifications(
-                                    moduleFactory.release(),
-                                    RQ_EXECUTE_REQUEST_HANDLER,
-                                    0));
-    ;
+                                  moduleFactory.release(),
+                                  RQ_EXECUTE_REQUEST_HANDLER,
+                                  0));
+
     auto pGlobalModule = std::make_unique<ASPNET_CORE_GLOBAL_MODULE>(std::move(applicationManager));
 
     RETURN_IF_FAILED(pModuleInfo->SetGlobalNotifications(
-                                  pGlobalModule.release(),
-                                  GL_CONFIGURATION_CHANGE | // Configuration change triggers IIS application stop
-                                  GL_STOP_LISTENING));   // worker process stop or recycle
+                                    pGlobalModule.release(),
+                                    GL_CONFIGURATION_CHANGE | // Configuration change triggers IIS application stop
+                                    GL_STOP_LISTENING));   // worker process stop or recycle
 
     return S_OK;
 }
