@@ -30,15 +30,11 @@ public static class WebHostBuilderIISExtensions
         {
             var iisConfigData = NativeMethods.HttpGetApplicationProperties();
 
-            // We want to add the config data to the hosting environment. There is no direct
-            // way to do this as different hosts handle this differently. Since the main use
-            // case of this is to enable it early enough for configuration, registering it on
-            // an .ConfigureAppConfiguration callback should set it early enough.
-            hostBuilder.ConfigureAppConfiguration((context, _) =>
+            hostBuilder.ConfigureEnvironment(env =>
             {
-                if (!context.HostingEnvironment.Features.IsReadOnly)
+                if (!env.Features.IsReadOnly)
                 {
-                    context.HostingEnvironment.Features.Set<IISEnvironmentFeature>(iisConfigData);
+                    env.Features.Set<IISEnvironmentFeature>(iisConfigData);
                 }
             });
 

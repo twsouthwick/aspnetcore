@@ -12,7 +12,7 @@ namespace Microsoft.AspNetCore.Hosting;
 
 // We use this type to capture calls to the IWebHostBuilder so the we can properly order calls to
 // to GenericHostWebHostBuilder.
-internal sealed class HostingStartupWebHostBuilder : IWebHostBuilder, ISupportsStartup, ISupportsUseDefaultServiceProvider
+internal sealed class HostingStartupWebHostBuilder : IWebHostBuilder, ISupportsStartup, ISupportsUseDefaultServiceProvider, ISupportsConfigureWebHostEnvironment
 {
     private readonly GenericWebHostBuilder _builder;
     private Action<WebHostBuilderContext, IConfigurationBuilder>? _configureConfiguration;
@@ -88,5 +88,10 @@ internal sealed class HostingStartupWebHostBuilder : IWebHostBuilder, ISupportsS
     public IWebHostBuilder UseStartup<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicMethods)] TStartup>(Func<WebHostBuilderContext, TStartup> startupFactory)
     {
         return _builder.UseStartup(startupFactory);
+    }
+
+    public IWebHostBuilder ConfigureEnvironment(Action<IWebHostEnvironment> configure)
+    {
+        return _builder.ConfigureEnvironment(configure);
     }
 }

@@ -184,6 +184,16 @@ public static class WebHostBuilderExtensions
         return hostBuilder.UseDefaultServiceProvider((context, options) => configure(options));
     }
 
+    public static IWebHostBuilder ConfigureEnvironment(this IWebHostBuilder hostBuilder, Action<IWebHostEnvironment> configure)
+    {
+        if(hostBuilder is ISupportsConfigureWebHostEnvironment supportsConfigureWebHostEnvironment)
+        {
+            return supportsConfigureWebHostEnvironment.ConfigureEnvironment(configure);
+        }
+
+        return hostBuilder.ConfigureAppConfiguration((context, _) => configure(context.HostingEnvironment));
+    }
+
     /// <summary>
     /// Configures the default service provider
     /// </summary>

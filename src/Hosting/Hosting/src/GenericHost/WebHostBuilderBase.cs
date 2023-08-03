@@ -7,7 +7,7 @@ using Microsoft.Extensions.Hosting;
 
 namespace Microsoft.AspNetCore.Hosting;
 
-internal abstract class WebHostBuilderBase : IWebHostBuilder, ISupportsUseDefaultServiceProvider
+internal abstract class WebHostBuilderBase : IWebHostBuilder, ISupportsUseDefaultServiceProvider, ISupportsConfigureWebHostEnvironment
 {
     private protected readonly IHostBuilder _builder;
     private protected readonly IConfiguration _config;
@@ -104,4 +104,7 @@ internal abstract class WebHostBuilderBase : IWebHostBuilder, ISupportsUseDefaul
         _config[key] = value;
         return this;
     }
+
+    public IWebHostBuilder ConfigureEnvironment(Action<IWebHostEnvironment> configure)
+        => ConfigureServices((ctx, _) => configure(ctx.HostingEnvironment));
 }

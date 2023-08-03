@@ -20,7 +20,7 @@ namespace Microsoft.AspNetCore.Hosting;
 /// <summary>
 /// A builder for <see cref="IWebHost"/>
 /// </summary>
-public class WebHostBuilder : IWebHostBuilder
+public class WebHostBuilder : IWebHostBuilder, ISupportsConfigureWebHostEnvironment
 {
     private readonly HostingEnvironment _hostingEnvironment;
     private readonly IConfiguration _config;
@@ -370,5 +370,11 @@ public class WebHostBuilder : IWebHostBuilder
             return contentRootPath;
         }
         return Path.Combine(Path.GetFullPath(basePath), contentRootPath);
+    }
+
+    IWebHostBuilder ISupportsConfigureWebHostEnvironment.ConfigureEnvironment(Action<IWebHostEnvironment> configure)
+    {
+        configure(_hostingEnvironment);
+        return this;
     }
 }
