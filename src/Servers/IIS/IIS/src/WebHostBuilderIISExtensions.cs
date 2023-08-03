@@ -1,6 +1,7 @@
 // Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 
+using System.Net.NetworkInformation;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting.Server;
 using Microsoft.AspNetCore.Server.IIS;
@@ -29,7 +30,11 @@ public static class WebHostBuilderIISExtensions
         {
             var iisConfigData = NativeMethods.HttpGetApplicationProperties();
 
-            hostBuilder.ConfigureServices((context, _) =>
+            // We want to add the config data to the hosting environment. There is no direct
+            // way to do this as different hosts handle this differently. Since the main use
+            // case of this is to enable it early enough for configuration, registering it on
+            // an .ConfigureAppConfiguration callback should set it early enough.
+            hostBuilder.ConfigureAppConfiguration((context, _) =>
             {
                 if (!context.HostingEnvironment.Features.IsReadOnly)
                 {
